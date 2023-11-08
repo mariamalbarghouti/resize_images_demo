@@ -9,14 +9,11 @@ import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:path_provider/path_provider.dart';
 
 class HomeController extends GetxController {
-  // List<ImageFile> _outPutUrl = [];
   bool isUploading = false;
   List<int> items = [];
 
-  // String logoPath = "";
   int selectedValue = 20;
   Directory? appDocDir;
-  // int timeStamp = 0;
   MultiImagePickerController controller = MultiImagePickerController(
     maxImages: 100,
     allowedImageTypes: ['png', 'jpg', 'jpeg'],
@@ -38,6 +35,28 @@ class HomeController extends GetxController {
   }
 
   Future<void> resizeImages() async {
+    if (isUploading) return;
+    isUploading = true;
+
+    update(["loading"]);
+
+    if (controller.images.isNotEmpty) {
+      await _resizeImages().then((value) {
+        isUploading = false;
+        update(["loading"]);
+      });
+    } else {
+      isUploading = false;
+      update(["loading"]);
+      Get.snackbar(
+        "Alert",
+        "Choose images firstly",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
+
+  Future<void> _resizeImages() async {
     for (int i = 0; i < controller.images.length; i++) {
       coloredPrint("Size: ${controller.images.elementAt(i).size}");
       String outPutLocation =
@@ -48,8 +67,8 @@ class HomeController extends GetxController {
           .then((session) async {
         if (ReturnCode.isSuccess(await session.getReturnCode())) {
           // coloredPrint('Image processing completed successfully');
-          await GallerySaver.saveImage(outPutLocation,albumName: "KidsCare resize");
-       
+          await GallerySaver.saveImage(outPutLocation,
+              albumName: "KidsCare resize");
         } else {
           coloredPrint(
               'Image processing failed. Error: ${await session.getReturnCode()}');
