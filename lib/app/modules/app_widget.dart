@@ -9,9 +9,10 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  GetMaterialApp(
-       title: "KidsCareResize",
+       title: "KidsCareResizer",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      theme: ThemeData(primaryColor: Colors.purple),
       debugShowCheckedModeBanner: false,
       logWriterCallback: Logger.write,
     );

@@ -12,7 +12,7 @@ class HomeController extends GetxController {
   bool isUploading = false;
   List<int> items = [];
 
-  int selectedValue = 20;
+  int selectedValue = 50;
   Directory? appDocDir;
   MultiImagePickerController controller = MultiImagePickerController(
     maxImages: 100,
@@ -42,6 +42,12 @@ class HomeController extends GetxController {
 
     if (controller.images.isNotEmpty) {
       await _resizeImages().then((value) {
+        controller.clearImages();
+        Get.snackbar(
+          "Alert",
+          "Images have been resized!\nPlease take a moment to check the 'KidsCareResizer' folder",
+          snackPosition: SnackPosition.BOTTOM,
+        );
         isUploading = false;
         update(["loading"]);
       });

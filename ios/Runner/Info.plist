@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>kids_care_demo</string>
+	<string>KidsCareResizer</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -29,9 +29,7 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
-	<!-- Images -->
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>KidsCare app need access to your photos to resize your images</string>
+
 
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
