@@ -17,12 +17,13 @@ class PickedVideosWidget extends StatelessWidget {
         itemBuilder: (context, index) =>
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           // Video Name
-          Text(
-            basename(controller.videos[index].path),
-          ),
+          Wrap(children: [
+            Text(basename(controller.videos[index].path)),
+          ]),
           // Drop Videos
           IconButton(
-            onPressed: () => controller.isResizing? null:controller.dropVideo(index),
+            onPressed: () =>
+                controller.isResizing ? null : controller.dropVideo(index),
             icon: Icon(
               Icons.delete,
               color: Colors.purple.withOpacity(0.7),
