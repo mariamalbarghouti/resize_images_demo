@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:kids_care_demo/app/modules/home/views/widgets/pick_videos.dart';
 import 'package:kids_care_demo/app/modules/home/views/widgets/picked_images.dart';
 import '../controllers/home_controller.dart';
 
@@ -24,16 +25,20 @@ class HomeView extends GetView<HomeController> {
             left: 9,
           ),
           children: [
+            // Images
             const PickedImagesWidget(),
             const SizedBox(height: 30),
-           
+            // videos
+            const PickedVideosWidget(),
+            const SizedBox(height: 30),
+            // Resolution
             const Text("Choose Resolution"),
             GetBuilder<HomeController>(
                 id: "resize",
                 builder: (controller) {
                   return DropdownButton<int>(
                     value: controller.selectedValue,
-                    items: controller.items.map((int value) {
+                    items: controller.resolutionsItems.map((int value) {
                       return DropdownMenuItem<int>(
                         value: value,
                         child: Text('$value%'),
@@ -43,12 +48,13 @@ class HomeView extends GetView<HomeController> {
                   );
                 }),
             const SizedBox(height: 30),
+            // Resize Button
             TextButton(
-              onPressed: () async => await controller.resizeImages(),
+              onPressed: () async => await controller.resizeFiles(),
               child: GetBuilder<HomeController>(
                   id: "loading",
                   builder: (controller) {
-                    if (controller.isUploading) {
+                    if (controller.isResizing) {
                       return const CircularProgressIndicator(
                           color: Colors.purple);
                     } else {
